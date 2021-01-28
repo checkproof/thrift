@@ -1,5 +1,6 @@
 {
-    "name": "apache/thrift",
+    "name": "checkproof/thrift",
+    "version": "0.14.1",
     "description": "Apache Thrift RPC system",
     "homepage": "http://thrift.apache.org",
     "type": "library",

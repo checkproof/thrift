@@ -97,6 +97,9 @@ class TCurlClient extends TTransport
      */
     protected $headers_;
 
+    /** @var string|null */
+    private $responseBody = null;
+
     /**
      * Make a new HTTP client.
      *
@@ -267,7 +270,7 @@ class TCurlClient extends TTransport
         $this->request_ = '';
 
         curl_setopt(self::$curlHandle, CURLOPT_URL, $fullUrl);
-        $this->response_ = curl_exec(self::$curlHandle);
+        $this->response_ = $this->responseBody = curl_exec(self::$curlHandle);
         $responseError = curl_error(self::$curlHandle);
 
         $code = curl_getinfo(self::$curlHandle, CURLINFO_HTTP_CODE);
@@ -303,5 +306,15 @@ class TCurlClient extends TTransport
     public function addHeaders($headers)
     {
         $this->headers_ = array_merge($this->headers_, $headers);
+    }
+
+    /**
+     * Get response body of last request.
+     *
+     * @return string|null
+     */
+    public function getResponseBody()
+    {
+        return $this->responseBody;
     }
 }
